@@ -7,6 +7,83 @@ namespace NGoTiengViet
 {
     class AmLich
     {
+        enum Thu { CN, T2, T3, T4, T5, T6, T7 }
+        enum Chi { Tý, Sửu, Dần, Mẹo, Thìn, Tỵ, Ngọ, Mùi, Thân, Dậu, Tuất, Hợi }
+        enum Can { Giáp, Ất, Bính, Đinh, Mậu, Kỷ, Canh, Tân, Nhâm, Quý }
+        /// <summary>
+        /// Tìm tên gọi Thứ của ngày
+        /// </summary>
+        /// <param name="dd"></param>
+        /// <param name="mm"></param>
+        /// <param name="yy"></param>
+        /// <returns></returns>
+        public string getThu(int dd, int mm, int yy)
+        {
+            long jd = jdFromDate(dd, mm, yy);
+            return ((Thu)((jd + 1) % 7)).ToString();
+        }
+        /// <summary>
+        /// Tìm tên gọi Chi của năm (12 chi)
+        /// </summary>
+        /// <param name="yy"></param>
+        /// <returns></returns>
+        public string getChiNam(int yy) {
+            return ((Chi)((yy + 8) % 12)).ToString();
+        }
+        /// <summary>
+        /// Tìm tên gọi Can của năm (10 can)
+        /// </summary>
+        /// <param name="yy"></param>
+        /// <returns></returns>
+        public string getCanNam(int yy)
+        {
+            return ((Can)((yy + 6) % 10)).ToString();
+        }
+        /// <summary>
+        /// Tìm tên gọi Can của ngày
+        /// </summary>
+        /// <param name="dd"></param>
+        /// <param name="mm"></param>
+        /// <param name="yy"></param>
+        /// <returns></returns>
+        public string getCanNgay(int dd, int mm, int yy)
+        {
+            long jd = jdFromDate(dd, mm, yy);
+            return ((Can)((jd + 9) % 10)).ToString();
+        }
+        /// <summary>
+        /// Tìm tên gọi Chi của ngày
+        /// </summary>
+        /// <param name="dd"></param>
+        /// <param name="mm"></param>
+        /// <param name="yy"></param>
+        /// <returns></returns>
+        public string getChiNgay(int dd, int mm, int yy)
+        {
+            long jd = jdFromDate(dd, mm, yy);
+            return ((Chi)((jd + 1) % 12)).ToString();
+        }
+        /// <summary>
+        /// Tìm tên gọi Chi của tháng (!tháng Âm Lịch)
+        /// </summary>
+        /// <param name="mm"></param>
+        /// <returns></returns>
+        public string getChiThang(int mm) // mm la thang Am lich duoc tinh truoc do
+        {
+            int tam = (mm + 1) % 12; // Thang 11 la thang Ty, thang 12 la thang Suu
+            return ((Chi)(tam)).ToString();
+        }
+        /// <summary>
+        /// Tìm tên gọi Can của tháng, năm (!tháng Âm lịch, năm Âm lịch)
+        /// </summary>
+        /// <param name="mm"></param>
+        /// <param name="yy"></param>
+        /// <returns></returns>
+        public string getCanThang(int mm, int yy) // mm la thang am lich, yy nam am lich
+        {
+            int tam = (yy * 12 + mm + 3) % 10;
+            return ((Can)(tam)).ToString();
+        }
         public long jdFromDate(int dd, int mm, int yy)
         {           
             var a = (int)(14 - mm) / 12;
